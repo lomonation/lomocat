@@ -1,8 +1,15 @@
 import tweepy
 from config import *
 
-auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
-auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
-api = tweepy.API(auth)
+class Twitter(object):
+    def __init__(self):
+        auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
+        auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
+        self.api = tweepy.API(auth)
 
-# api.update_status('First run!')
+    def post(self, message):
+        if (len(message) < 141):
+            self.api.update_status(message)
+            return 'Tweet posted!'
+        else:
+            return 'Tweet too long.'
