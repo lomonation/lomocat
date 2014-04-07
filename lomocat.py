@@ -18,6 +18,14 @@ class LomoCat(object):
         else:
             print 'Command not recognized.'
 
+    def cartograph(self, command):
+        if (command.lower() == 'map'):
+            print 'Rendering map.'
+        elif (command.lower() == 'signs'):
+            print 'Rendering signs.'
+        else:
+            print 'Command not recognized.'
+
 if __name__ == '__main__':
     cat = LomoCat()
 
@@ -25,7 +33,9 @@ if __name__ == '__main__':
 
     parser.add_argument('-t', '--tweet', metavar='message', type=str, help='post a tweet')
 
-    parser.add_argument('--minecraft', metavar='command', type=str, help='issue a Minecraft server command')
+    parser.add_argument('-m', '--minecraft', metavar='command', type=str, help='issue a Minecraft server command')
+
+    parser.add_argument('-c', '--cartograph', metavar='poi', type=str, help='render server map')
 
     args = parser.parse_args()
 
@@ -34,3 +44,6 @@ if __name__ == '__main__':
 
     if (args.minecraft is not None):
         cat.minecraft(args.minecraft)
+
+    if (args.cartograph is not None):
+        cat.cartograph(args.cartograph)
