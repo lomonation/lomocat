@@ -54,3 +54,6 @@ docs/_build/
 
 # API Keys
 config.py
+
+# Testing
+minecraft/*

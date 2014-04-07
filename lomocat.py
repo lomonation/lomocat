@@ -1,4 +1,4 @@
-import argparse
+import argparse, subprocess
 from twitter import *
 
 class LomoCat(object):
@@ -11,8 +11,10 @@ class LomoCat(object):
     def minecraft(self, command):
         if (command.lower() == 'start'):
             print 'Starting server.'
+            subprocess.call(['screen', '-S', 'minecraft', '-X', 'stuff', 'java -Xmx1024M -Xms1024M -jar minecraft_server.1.7.5.jar nogui\015'])
         elif (command.lower() == 'stop'):
             print 'Stopping server.'
+            subprocess.call(['screen', '-S', 'minecraft', '-X', 'stuff', 'stop\015'])
         else:
             print 'Command not recognized.'
 
