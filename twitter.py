@@ -12,4 +12,4 @@ class Twitter(object):
             self.api.update_status(message)
             return 'Tweet posted!'
         else:
-            return 'Tweet too long.'
+            return 'Tweet not posted: message too long!'
