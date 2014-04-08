@@ -1,5 +1,6 @@
 import argparse, subprocess
 from twitter import *
+from personality import *
 
 class LomoCat(object):
     def __init__(self):
@@ -33,7 +34,7 @@ class LomoCat(object):
         else:
             print 'Command not recognized.'
 
-if __name__ == '__main__':
+def main():
     cat = LomoCat()
 
     parser = argparse.ArgumentParser(description='a bot for Lomonation')
@@ -59,3 +60,6 @@ if __name__ == '__main__':
 
     if (args.cartograph is not None):
         cat.cartograph(args.cartograph)
+
+if __name__ == '__main__':
+    main()
