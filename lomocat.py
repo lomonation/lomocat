@@ -53,13 +53,13 @@ def main():
 
     parser.add_argument('-s', '--status', action='store_true', help='check server status')
 
-    parser.add_argument('-t', '--tweet', metavar='message', type=str, help='post a tweet')
+    parser.add_argument('-t', '--tweet', metavar='<message>', type=str, help='post a tweet')
 
-    parser.add_argument('-m', '--minecraft', metavar='command', type=str, help='issue a Minecraft server command')
+    parser.add_argument('-m', '--minecraft', metavar='<command>', type=str, help='issue a Minecraft server command')
 
-    parser.add_argument('-b', '--broadcast', metavar='message', type=str, help='broadcast a global server message')
+    parser.add_argument('-b', '--broadcast', metavar='<message>', type=str, help='broadcast a global server message')
 
-    parser.add_argument('-c', '--cartograph', metavar='command', type=str, help='render server map')
+    parser.add_argument('-c', '--cartograph', metavar='<command>', type=str, help='render server map')
 
     args = parser.parse_args()
 
