@@ -1,19 +1,26 @@
-import argparse, subprocess, nmap
+import argparse, subprocess
 from config import SERVER_IP, SERVER_PORT
 from twitter import *
 from personality import *
 
 class LomoCat(object):
     def __init__(self):
-        self.nm = nmap.PortScanner()
         self.twitter = Twitter()
 
     def tweet(self, message):
         print self.twitter.post(message)
 
     def status(self):
-        self.nm.scan(SERVER_IP, SERVER_PORT)
-        return self.nm[SERVER_IP]['tcp'][int(SERVER_PORT)]['state']
+        result = subprocess.Popen(['nmap', SERVER_IP, '-p', SERVER_PORT], stdout=subprocess.PIPE).communicate()[0]
+
+        if ('open') in result:
+            status = 'Online'
+        elif ('closed' in result):
+            status = 'Offline'
+        else:
+            status = 'Unknown'
+
+        return status
 
     def mc_command(self, command):
         return subprocess.call(['screen', '-S', 'minecraft', '-X', 'stuff', '%s\015' % command])
@@ -64,7 +71,7 @@ def main():
     args = parser.parse_args()
 
     if (args.status):
-        print cat.status().capitalize()
+        print cat.status()
 
     if (args.tweet is not None):
         cat.tweet(args.tweet)
