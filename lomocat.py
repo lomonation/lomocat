@@ -1,6 +1,7 @@
 import argparse, subprocess
 from config import SERVER_IP, SERVER_PORT
 from twitter import *
+from server import Status
 from personality import *
 
 class LomoCat(object):
@@ -14,11 +15,11 @@ class LomoCat(object):
         result = subprocess.Popen(['nmap', SERVER_IP, '-p', SERVER_PORT], stdout=subprocess.PIPE).communicate()[0]
 
         if ('open') in result:
-            status = 'Online'
+            status = Status.online
         elif ('closed' in result):
-            status = 'Offline'
+            status = Status.offline
         else:
-            status = 'Unknown'
+            status = Status.none
 
         return status
 
@@ -27,13 +28,13 @@ class LomoCat(object):
 
     def minecraft(self, command):
         if (command.lower() == 'start'):
-            if (self.status() == 'open'):
+            if (self.status() == Status.online):
                 print 'Server already running.'
             else:
                 print 'Starting server.'
                 self.mc_command('java -Xmx1024M -Xms1024M -jar minecraft_server.1.7.5.jar nogui')
         elif (command.lower() == 'stop'):
-            if (self.status() == 'closed'):
+            if (self.status() == Status.offline or self.status() == Status.none):
                 print 'No server instance found.'
             else:
                 print 'Stopping server.'
@@ -71,7 +72,7 @@ def main():
     args = parser.parse_args()
 
     if (args.status):
-        print cat.status()
+        print cat.status().name.capitalize()
 
     if (args.tweet is not None):
         cat.tweet(args.tweet)
