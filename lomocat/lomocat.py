@@ -1,4 +1,4 @@
-import argparse, subprocess
+import argparse, subprocess, random
 from config import SERVER_IP, SERVER_PORT
 from twitter import *
 from server import Status, COMMAND_LIST
@@ -9,7 +9,8 @@ class LomoCat(object):
         self.twitter = Twitter()
 
     def tweet(self, message):
-        print self.twitter.post(message)
+        # print self.twitter.post(message)
+        print message
 
     def status(self):
         result = subprocess.Popen(['nmap', SERVER_IP, '-p', SERVER_PORT], stdout=subprocess.PIPE).communicate()[0]
@@ -33,12 +34,14 @@ class LomoCat(object):
             else:
                 print 'Starting server.'
                 self.mc_command('java -Xmx1024M -Xms1024M -jar minecraft_server.1.7.5.jar nogui')
+                self.tweet(random.choice(SERVER_START));
         elif (command[0].lower() == 'stop'):
             if (self.status() == Status.offline or self.status() == Status.none):
                 print 'No server instance found.'
             else:
                 print 'Stopping server.'
                 self.mc_command('stop')
+                self.tweet(random.choice(SERVER_STOP));
         elif (command[0] in COMMAND_LIST):
             if (self.status() == Status.online):
                 print 'Executing: /%s' % ' '.join(command) 
