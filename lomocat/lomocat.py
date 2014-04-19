@@ -83,5 +83,5 @@ def main():
     if (args.cartograph is not None):
         cat.cartograph(args.cartograph)
 
-if __name__ == '__main__':
-    main()
+# if __name__ == '__main__':
+#     main()
